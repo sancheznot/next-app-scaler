@@ -1,0 +1,38 @@
+{
+  "name": "next-app-scaler",
+  "version": "1.0.0",
+  "description": "A fixed, scaled sandbox for Next.js apps to handle Windows High-DPI scaling correctly.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "next-app-scaler": "./bin/cli.mjs"
+  },
+  "scripts": {
+    "build": "tsup src/index.tsx --format cjs,esm --dts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nextjs",
+    "scaling",
+    "dpi",
+    "shadcn",
+    "layout",
+    "zoom"
+  ],
+  "author": "sancheznotdev <https://github.com/sancheznot/>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sancheznot/"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0"
+  }
+}

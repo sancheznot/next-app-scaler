@@ -24,7 +24,20 @@ const ScalerContext = createContext<ScalerContextType>({
 
 export const useScaler = () => useContext(ScalerContext);
 
-export function AppScaler({ children }: { children: React.ReactNode }) {
+/** EN: Root wrapper props. ES: Props del contenedor raíz. */
+export type AppScalerProps = {
+  children: React.ReactNode;
+  /**
+   * EN: Extra classes on the scaler root (merged after defaults). Use for Safari/iOS tweaks, e.g. `min-h-svh` or safe-area utilities.
+   * ES: Clases extra en el root (se añaden a las por defecto). Útil en Safari/iOS: `min-h-svh`, safe-area, etc.
+   */
+  className?: string;
+};
+
+const APP_SCALER_ROOT_CLASSES =
+  "app-scaler-root min-h-svh h-dvh w-full bg-background flex flex-col [&>*:first-child]:min-h-full [&>*:first-child]:grow";
+
+export function AppScaler({ children, className }: AppScalerProps) {
   const scalerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [isActive, setIsActive] = useState(false);
@@ -90,7 +103,9 @@ export function AppScaler({ children }: { children: React.ReactNode }) {
           overflowY: isActive ? "auto" : "unset",
           overflowX: "hidden",
         }}
-        className="app-scaler-root h-dvh w-full bg-background flex flex-col [&>*:first-child]:min-h-full [&>*:first-child]:grow"
+        className={
+          className ? `${APP_SCALER_ROOT_CLASSES} ${className}` : APP_SCALER_ROOT_CLASSES
+        }
       >
         {children}
       </div>

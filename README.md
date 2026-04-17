@@ -60,6 +60,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+Optional: pass **`className`** for Safari / safe-area tweaks, e.g. `<AppScaler className="pb-[env(safe-area-inset-bottom)]">`.
+
 #### 3. Optional: `useScaler()` in your code
 
 ```tsx
@@ -83,7 +85,15 @@ The root element also exposes `data-app-scaler-active` and `data-app-scaler-scal
 
 Runtime updates also listen to **`window.resize`** and, when available, **`visualViewport.resize`**, so page zoom / odd viewport changes still re-run the same layout logic. That does **not** change the `scale(1/DPR)` math—only how often it refreshes.
 
-> **Note:** Older docs mentioned a special “100dvh Mac shell”; the current code simply **disables** the scaler on Mac. The root class may still use `h-dvh` for a full-height column when needed.
+> **Note:** Older docs mentioned a special “100dvh Mac shell”; the current code simply **disables** the scaler on Mac. The root still uses **`min-h-svh`** + **`h-dvh`** (full-height column); tweak with **`className`** on **`AppScaler`** if Safari needs more.
+
+### Mac, Safari, or mobile — layout looks “off”?
+
+We **do not** turn on the Windows-style `transform` on Mac by default: Retina usually has `devicePixelRatio === 2`, and scaling like Windows would **shrink** the whole app. If something looks wrong on your spouse’s Mac, it’s usually:
+
+1. **Portals** — Run **`npx next-app-scaler`** so overlays aren’t stuck on `document.body`.
+2. **Safari + `dvh`** — Toolbars and safe areas; override with **`className`** on **`AppScaler`** (e.g. safe-area padding or your own `min-h-*`).
+3. **Flex** — Children may need **`min-h-0`** so scroll regions behave (see [LAYOUT-PITFALLS](./docs/LAYOUT-PITFALLS.md)).
 
 ### Does `npx next-app-scaler` need updating when the library updates?
 
@@ -150,6 +160,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+Opcional: **`className`** para Safari / safe area, p. ej. `<AppScaler className="pb-[env(safe-area-inset-bottom)]">`.
+
 #### 3. Opcional: `useScaler()` en tu código
 
 ```tsx
@@ -173,7 +185,15 @@ El nodo raíz también expone `data-app-scaler-active` y `data-app-scaler-scale`
 
 En tiempo de ejecución también se escuchan **`window.resize`** y, si existe, **`visualViewport.resize`**, para que zoom de página o cambios raros de viewport vuelvan a ejecutar la misma lógica. Eso **no** cambia la fórmula `scale(1/DPR)`—solo **cuántas veces** se actualiza.
 
-> **Nota:** documentación antigua hablaba de un “shell Mac 100dvh” especial; la implementación actual **desactiva** el scaler en Mac. La clase del root puede seguir usando `h-dvh` para altura completa cuando haga falta.
+> **Nota:** documentación antigua hablaba de un “shell Mac 100dvh” especial; la implementación actual **desactiva** el scaler en Mac. El root usa **`min-h-svh`** + **`h-dvh`**; si Safari se porta mal, ajusta con **`className`** en **`AppScaler`**.
+
+### Mac, Safari o móvil — ¿se ve raro?
+
+**No** activamos el `transform` estilo Windows en Mac por defecto: en Retina suele haber `devicePixelRatio === 2` y escalar como en Windows **encogería** toda la UI. Si en un Mac “se ve mal”, lo habitual es:
+
+1. **Portales** — Ejecuta **`npx next-app-scaler`** para que los overlays no queden solo en `document.body`.
+2. **Safari y `dvh`** — Barra de URL y safe area; pasa **`className`** a **`AppScaler`** (p. ej. padding safe-area o tu propio `min-h-*`).
+3. **Flex** — A los hijos a veces les falta **`min-h-0`** para el scroll (ver [LAYOUT-PITFALLS](./docs/LAYOUT-PITFALLS.md)).
 
 ### ¿Hay que actualizar el parche (`npx`) cuando sube la librería?
 

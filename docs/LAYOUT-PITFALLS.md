@@ -33,6 +33,16 @@ After portaling **into** the scaler, UI layers compete in **one** subtree. Page 
 
 For centered full-screen pages, **`min-h-screen`** can mis-match the scaler box. Patterns that work: **`fixed inset-0`** inside the scaler (covers the scaled viewport) or **`h-full`** flex chain from the root layout.
 
+## Mac & mobile (scaler inactive)
+
+On **macOS** and **mobile**, the package **turns scaling off** on purpose: Retina Macs usually report `devicePixelRatio === 2` without Windows-style “125% display zoom”. Treating that like Windows would apply `scale(0.5)` and shrink the whole UI—so Mac is excluded from the transform path.
+
+If the app still looks **wrong on a Mac**, it is usually **not** fixed by “enabling the same scaler as Windows”. Check instead:
+
+1. **Portals** — Run **`npx next-app-scaler`** so dialogs/tooltips mount inside the scaler root. Unpatched Radix portals to `body` + your layout often look “off” on Safari too.
+2. **Dynamic viewport** — Safari’s toolbar makes **`100dvh`** jump or leave bands. The root uses **`min-h-svh`** plus **`h-dvh`** to reduce the worst cases; you can pass **`className`** on **`AppScaler`** (v1.1.4+) to tune (e.g. your own `min-h-*`, safe-area, or `pb-[env(safe-area-inset-bottom)]`).
+3. **Flex** — Use **`min-h-0`** on flex children so nested scroll areas don’t explode on iOS.
+
 ## `useScaler()` extras (v1.1+)
 
 - **`isActive`**: whether the HiDPI sandbox is on.

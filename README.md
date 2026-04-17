@@ -6,13 +6,25 @@
 
 A **scaled sandbox** for Next.js apps—especially **shadcn/ui**—so layouts stay coherent on **Windows / Linux** when the OS uses **display zoom** (125%, 150%, …) and the browser reports `devicePixelRatio > 1`.
 
+When the sandbox is **on**, it helps the UI **look and behave correctly** by bringing the **visual** result closer to a consistent **100%-scale** layout (scroll, overflow, Radix portaled content). **Recommendation:** design and tweak your UI with **Windows display scaling at 100%** (or whatever you ship for). If you **always** develop at **125% or 150%** system zoom, you may have sized spacing and type for that environment—with the scaler active, the same app can feel **smaller** than on your normal desktop, because the package is **undoing** that extra zoom for layout—not because the library is “wrong,” but because you were previewing at a larger effective scale before.
+
 Published on npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
 ### Español
 
 Un **sandbox escalado** para apps Next.js—sobre todo con **shadcn/ui**—para que el layout se mantenga coherente en **Windows / Linux** cuando el sistema usa **zoom de pantalla** (125%, 150%, …) y el navegador reporta `devicePixelRatio > 1`.
 
+Con el sandbox **activo**, ayuda a que la UI **se vea y comporte bien**, acercando el resultado **visual** a un aspecto coherente tipo **100%** (scroll, desbordes, contenido en portales de Radix). **Recomendación:** programa y ajusta la UI con **escala de pantalla de Windows al 100%** (o la que quieras como referencia real). Si trabajas siempre al **125% o 150%**, es fácil haber calibrado tipografía y márgenes “a ojo” para ese entorno: al usar el paquete puede parecer que todo queda **más pequeño** que en tu día a día, porque el escalado **compensa** ese zoom extra del sistema—no es un fallo del paquete, es el contraste con haber diseñado viendo la UI “más grande” por el zoom de pantalla.
+
 Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
+
+### Example · Ejemplo — Windows display zoom (with vs without)
+
+| Without `next-app-scaler` | With `next-app-scaler` |
+|:-:|:-:|
+| ![125% system zoom — without scaler](docs/images/windows-125-without.png) | ![125% system zoom — with AppScaler](docs/images/windows-125-with.png) |
+
+*EN: Same browser width and page; only the scaler differs. ES: Mismo ancho y misma vista; solo cambia el scaler. — Add PNGs in [`docs/images/`](./docs/images/README.md).*
 
 ---
 

@@ -12,7 +12,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "next-app-scaler": "./bin/cli.mjs"
+    "next-app-scaler": "bin/cli.mjs"
   },
   "scripts": {
     "build": "tsup src/index.tsx --format cjs,esm --dts",

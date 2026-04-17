@@ -4,13 +4,13 @@
 
 ### English
 
-A **scaled sandbox** for Next.js apps—especially **shadcn/ui**—so layouts stay coherent on **Windows / Linux** when the OS uses **display zoom** (125%, 150%, …) and the browser reports `devicePixelRatio > 1`. Made with care for real desks, real zoom settings, and fewer “why is my dialog in the wrong place?” moments.
+A **scaled sandbox** for Next.js apps—especially **shadcn/ui**—so layouts stay coherent on **Windows / Linux** when the OS uses **display zoom** (125%, 150%, …) and the browser reports `devicePixelRatio > 1`.
 
 Published on npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
 ### Español
 
-Un **sandbox escalado** para apps Next.js—sobre todo con **shadcn/ui**—para que el layout se mantenga coherente en **Windows / Linux** cuando el sistema usa **zoom de pantalla** (125%, 150%, …) y el navegador reporta `devicePixelRatio > 1`. Hecho con mucho cariño para escritorios de verdad, zoom real y menos “¿por qué mi diálogo está en otro sitio?”.
+Un **sandbox escalado** para apps Next.js—sobre todo con **shadcn/ui**—para que el layout se mantenga coherente en **Windows / Linux** cuando el sistema usa **zoom de pantalla** (125%, 150%, …) y el navegador reporta `devicePixelRatio > 1`.
 
 Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
@@ -112,7 +112,11 @@ Clone this package’s repo, then `npm install`, edit `src/index.tsx`, `npm run 
 
 ### Author · License
 
-**sancheznotdev** · [GitHub](https://github.com/sancheznot/) · MIT License.
+**sancheznotdev** ❤️ · [GitHub](https://github.com/sancheznot/)
+
+*Made with care — real desks, real zoom, fewer “dialogs in the wrong place.”*
+
+MIT License
 
 ---
 
@@ -212,4 +216,8 @@ Clona el repo de este paquete, `npm install`, edita `src/index.tsx`, `npm run bu
 
 ### Autor · Licencia
 
-**sancheznotdev** · [GitHub](https://github.com/sancheznot/) · Licencia MIT.
+**sancheznotdev** ❤️ · [GitHub](https://github.com/sancheznot/)
+
+*Hecho con mucho cariño — escritorios de verdad, zoom real, menos diálogos fuera de sitio.*
+
+Licencia MIT

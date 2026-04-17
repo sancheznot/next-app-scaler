@@ -4,17 +4,9 @@ A **scaled sandbox** for Next.js apps (especially with **shadcn/ui**) so layouts
 
 Published on npm as [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
-## Source repository (local development)
+## Local development (maintainers)
 
-If you cloned the monorepo or workspace where this package was developed, the **source** usually lives in a folder named **`scaler-kit`** (this repo), **not** inside each Next app. Consumer apps (`fiscalapp`, `cms-IA`, etc.) only list it as a **dependency**; they do not contain the package source.
-
-```text
-programming/scaler-kit/     ← this package (src, bin, docs)
-typetwojobs/fiscalapp/      ← npm dependency "next-app-scaler": "^1.0.0"
-programming/cms-IA/         ← same
-```
-
-To work on the library: edit `src/index.tsx` here, run `npm run build`, then bump version / `npm publish` or `npm pack` and install from tarball in apps.
+From a checkout of **this** package’s repository: `npm install`, edit `src/index.tsx`, then `npm run build`. To try changes in a Next app without publishing, use `npm link` or `npm pack` and install the generated tarball in the app. Consumer projects only need the npm dependency; they do not ship this source tree.
 
 ## Install
 

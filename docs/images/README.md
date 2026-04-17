@@ -1,16 +1,15 @@
 # Screenshots for the main README
 
-- **`windows-125-without.png`** — real capture (fiscalapp dashboard at **125%** system zoom, **without** `AppScaler`).
-- **`windows-150-without.png`** — real capture at **150%** system zoom, **without** `AppScaler` (same app / scaler off).
-- **`windows-125-with.png`** — placeholder until the “with scaler” shot is added (ideally at **125%** for a fair A/B).
-
-Target files (overwrite `windows-125-with.png` when ready):
+- **`windows-150-without.png` / `windows-150-with.png`** — **150%** A/B (fiscalapp dashboard): **without** vs **with** `AppScaler` (main readme table).
+- **`windows-125-without.png`** — **125%**, **without** `AppScaler` (extra reference).
+- **`windows-125-with.png`** — optional: **125%** **with** `AppScaler` (still a placeholder until you add a real capture).
 
 | File | What to show |
 |------|----------------|
-| `windows-125-without.png` | Same app, **without** `AppScaler` at **125%** Windows display zoom. |
-| `windows-150-without.png` | Same app, **without** `AppScaler` at **150%** (optional extra example). |
-| `windows-125-with.png` | **Same** app at **125%**, **with** `<AppScaler>` — pair for the main table. |
+| `windows-150-without.png` | Same app at **150%**, scaler **off**. |
+| `windows-150-with.png` | Same app at **150%**, scaler **on** (`<AppScaler>`). |
+| `windows-125-without.png` | Same app at **125%**, scaler **off**. |
+| `windows-125-with.png` | Same app at **125%**, scaler **on** (optional). |
 
 **Tips**
 

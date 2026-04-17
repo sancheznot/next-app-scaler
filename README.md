@@ -18,19 +18,25 @@ Con el sandbox **activo**, ayuda a que la UI **se vea y comporte bien**, acercan
 
 Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
-### Example · Ejemplo — Windows display zoom (with vs without)
+### Example · Ejemplo — 150% Windows display zoom (with vs without)
 
 | Without `next-app-scaler` | With `next-app-scaler` |
 |:-:|:-:|
-| ![125% system zoom — without scaler](docs/images/windows-125-without.png) | ![125% system zoom — with AppScaler](docs/images/windows-125-with.png) |
+| ![150% — without scaler](docs/images/windows-150-without.png) | ![150% — with AppScaler](docs/images/windows-150-with.png) |
 
-*EN: Same browser width and page; only the scaler differs. ES: Mismo ancho y misma vista; solo cambia el scaler. — See [`docs/images/`](./docs/images/README.md).*
+*EN: Same app, same **150%** system zoom and viewport — only the scaler toggles. ES: Misma app y **150%** de zoom; solo cambia el paquete.*
 
-**150% system zoom — without scaler** · **150% zoom de pantalla — sin paquete**
+**Mouse / cursor vs UI** · **Cursor frente a la UI**
 
-![150% — without AppScaler (same app, scaler off)](docs/images/windows-150-without.png)
+*EN: The **OS draws the pointer** at physical size. **`AppScaler`** scales the **page** with CSS `transform`, so the web UI looks “100%-ish” while the cursor does **not** get scaled — it can look **large next to the UI**. That is **expected**, not a bug.*
 
-*EN: UI feels even denser / larger at 150% without the sandbox. ES: A 150% sin el sandbox la UI se siente aún más “inflada” en el mismo viewport.*
+*ES: El **sistema operativo pinta el puntero** a tamaño físico. El **`AppScaler`** escala la **página** con `transform`, así que la UI web se ve más “normal” pero el cursor **no** entra en esa escala — puede verse **grande al lado de la interfaz**. Es **normal**, no un fallo del paquete.*
+
+### Extra · 125% — without scaler
+
+![125% — without AppScaler](docs/images/windows-125-without.png)
+
+*Extra reference at **125%** without the sandbox. Optional pair: add `docs/images/windows-125-with.png` (with scaler) when you capture it.*
 
 ---
 

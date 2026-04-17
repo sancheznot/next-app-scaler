@@ -1,6 +1,6 @@
 {
   "name": "next-app-scaler",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A fixed, scaled sandbox for Next.js apps to handle Windows High-DPI scaling correctly.",
   "files": [
     "dist",

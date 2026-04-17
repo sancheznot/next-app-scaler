@@ -24,7 +24,13 @@ Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-sca
 |:-:|:-:|
 | ![125% system zoom — without scaler](docs/images/windows-125-without.png) | ![125% system zoom — with AppScaler](docs/images/windows-125-with.png) |
 
-*EN: Same browser width and page; only the scaler differs. ES: Mismo ancho y misma vista; solo cambia el scaler. — Add PNGs in [`docs/images/`](./docs/images/README.md).*
+*EN: Same browser width and page; only the scaler differs. ES: Mismo ancho y misma vista; solo cambia el scaler. — See [`docs/images/`](./docs/images/README.md).*
+
+**150% system zoom — without scaler** · **150% zoom de pantalla — sin paquete**
+
+![150% — without AppScaler (same app, scaler off)](docs/images/windows-150-without.png)
+
+*EN: UI feels even denser / larger at 150% without the sandbox. ES: A 150% sin el sandbox la UI se siente aún más “inflada” en el mismo viewport.*
 
 ---
 

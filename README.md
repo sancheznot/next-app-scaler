@@ -18,13 +18,13 @@ Con el sandbox **activo**, ayuda a que la UI **se vea y comporte bien**, acercan
 
 Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
-### Example · Ejemplo — 150% Windows display zoom (with vs without)
+### Example · Ejemplo — with vs without (same OS zoom)
 
 | Without `next-app-scaler` | With `next-app-scaler` |
 |:-:|:-:|
-| ![150% — without scaler](docs/images/windows-150-without.png) | ![150% — with AppScaler](docs/images/windows-150-with.png) |
+| ![Without scaler — real capture](docs/images/windows-125-without.png) | ![With AppScaler — replace this file with your capture](docs/images/windows-125-with.png) |
 
-*EN: Same app, same **150%** system zoom and viewport — only the scaler toggles. ES: Misma app y **150%** de zoom; solo cambia el paquete.*
+*EN: **Two different image files** are required. If you copy the same PNG twice, the table will look identical — check with `md5sum` / file size. Replace `windows-125-with.png` with a real “with scaler” shot (same zoom, same window width). ES: Hacen falta **dos archivos distintos**; si copias la misma captura dos veces, la tabla será idéntica. Sustituye `windows-125-with.png` por una captura real con el paquete (mismo zoom y ancho de ventana).*
 
 **Mouse / cursor vs UI** · **Cursor frente a la UI**
 
@@ -32,11 +32,7 @@ Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-sca
 
 *ES: El **sistema operativo pinta el puntero** a tamaño físico. El **`AppScaler`** escala la **página** con `transform`, así que la UI web se ve más “normal” pero el cursor **no** entra en esa escala — puede verse **grande al lado de la interfaz**. Es **normal**, no un fallo del paquete.*
 
-### Extra · 125% — without scaler
-
-![125% — without AppScaler](docs/images/windows-125-without.png)
-
-*Extra reference at **125%** without the sandbox. Optional pair: add `docs/images/windows-125-with.png` (with scaler) when you capture it.*
+See [`docs/images/README.md`](./docs/images/README.md) for how to capture a honest A/B.
 
 ---
 

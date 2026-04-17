@@ -1,32 +1,21 @@
-# Screenshots for the main README
+# Screenshots in the main README
 
-## Current files
+| File | What it shows |
+|------|----------------|
+| `windows-175-with-app-scaler.png` | **With** `<AppScaler>` — reference at **175%** Windows display zoom (fiscalapp). Web UI is scaled to stay coherent; **OS cursor** is not scaled (can look large next to the UI). |
+| `windows-150-zoom-without-scaler.png` | **Without** the package — **150%** OS zoom only. |
+| `windows-175-zoom-without-scaler.png` | **Without** the package — **175%** OS zoom only (more “inflated” UI than 150%). |
 
-| File | Role |
-|------|------|
-| `windows-125-without.png` | Real capture: app **without** `AppScaler` (Windows display zoom). |
-| `windows-125-with.png` | **Placeholder** — replace with a real capture **with** `<AppScaler>` at the **same** OS zoom and **same** browser width as `windows-125-without.png`, or the comparison is meaningless. |
+**Without** = only Windows/Linux **display scaling**; no `AppScaler` in the app.
 
-## If you use **fiscalapp** (this monorepo)
+## Capturing your own A/B (e.g. **fiscalapp**)
 
-1. In `typetwojobs/fiscalapp/.env.local` add: `NEXT_PUBLIC_APP_SCALER=false`
-2. **Restart** `next dev` (required for `NEXT_PUBLIC_*` changes).
-3. Same Windows zoom (125% / 150%), same browser **window width**, same URL → **screenshot “sin”**.
-4. **Remove** that line from `.env.local` (or set `NEXT_PUBLIC_APP_SCALER=true`), **restart** dev → **screenshot “con”**.
-5. `md5sum` / `sha256sum` on both PNGs → hashes **must differ**.
+1. `NEXT_PUBLIC_APP_SCALER=false` in `.env.local` → restart `next dev` → capture **without**.
+2. Remove that line (or `true`) → restart → capture **with** `<AppScaler>`.
+3. Same browser width and URL; only toggles should be scaler + intended OS zoom.
 
 Never deploy with `NEXT_PUBLIC_APP_SCALER=false`.
 
-## Integrity check (why this doc exists)
+## Integrity
 
-PNG files are **opaque**: if you copy the same screenshot three times under different names, **Git and the readme cannot tell**. Use **different** exports:
-
-1. Set OS zoom (e.g. 125% or 150%) and **window width**.
-2. Capture **without** the scaler (or temporarily unmount `<AppScaler>` in dev).
-3. **Without closing the browser**, turn the scaler **on**, same URL, same zoom — capture again.
-4. Compare file size or `md5sum` on Linux — hashes must **differ** if the pixels differ.
-
-## Tips
-
-- Capture the **viewport**, not the whole monitor.
-- Optional: label the image (e.g. “125% · con AppScaler”) so you don’t mix files later.
+Different PNGs must have **different** `md5sum` / file sizes — do not copy the same file under two names.

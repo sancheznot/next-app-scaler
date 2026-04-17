@@ -18,21 +18,31 @@ Con el sandbox **activo**, ayuda a que la UI **se vea y comporte bien**, acercan
 
 Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
-### Example · Ejemplo — with vs without (same OS zoom)
+### Example screenshots · Ejemplos reales (fiscalapp)
 
-| Without `next-app-scaler` | With `next-app-scaler` |
+*EN: **Only one** image below uses **`next-app-scaler`**. The others are **OS display zoom only** (125%–175% style scaling — here **150%** and **175%** without the package). ES: **Solo una** imagen usa **`next-app-scaler`**. Las demás son **solo zoom de pantalla del sistema** (tipo 125%–175% — aquí **150%** y **175%** sin el paquete).*
+
+#### With `next-app-scaler` · **Con el paquete** (175% OS zoom)
+
+*EN: **This** is the one with `<AppScaler>` — layout compensated; cursor stays OS-sized (often looks big next to the web UI). ES: **Esta** es la que lleva `<AppScaler>` — layout compensado; el cursor sigue siendo del sistema (a veces se ve grande junto a la UI).*
+
+![175% display zoom + AppScaler](docs/images/windows-175-with-app-scaler.png)
+
+#### Without scaler — solo zoom del sistema (sin `next-app-scaler`)
+
+*EN: Same app **without** the package — only Windows/Linux **display scaling**; UI gets more “inflated” as zoom rises (125% → 175% behaves like this). ES: Misma app **sin** el paquete — solo **escala de pantalla**; la UI se ve más “hinchada” al subir el zoom.*
+
+| 150% · sin paquete | 175% · sin paquete |
 |:-:|:-:|
-| ![Without scaler — real capture](docs/images/windows-125-without.png) | ![With AppScaler — replace this file with your capture](docs/images/windows-125-with.png) |
-
-*EN: **Two different image files** are required. If you copy the same PNG twice, the table will look identical — check with `md5sum` / file size. Replace `windows-125-with.png` with a real “with scaler” shot (same zoom, same window width). ES: Hacen falta **dos archivos distintos**; si copias la misma captura dos veces, la tabla será idéntica. Sustituye `windows-125-with.png` por una captura real con el paquete (mismo zoom y ancho de ventana).*
+| ![150% — without AppScaler](docs/images/windows-150-zoom-without-scaler.png) | ![175% — without AppScaler](docs/images/windows-175-zoom-without-scaler.png) |
 
 **Mouse / cursor vs UI** · **Cursor frente a la UI**
 
-*EN: The **OS draws the pointer** at physical size. **`AppScaler`** scales the **page** with CSS `transform`, so the web UI looks “100%-ish” while the cursor does **not** get scaled — it can look **large next to the UI**. That is **expected**, not a bug.*
+*EN: The **OS draws the pointer** at physical size. **`AppScaler`** scales the **page** with CSS `transform`, so the web UI looks “100%-ish” while the cursor does **not** get scaled — it can look **large next to the UI** in the “with scaler” capture. That is **expected**, not a bug.*
 
-*ES: El **sistema operativo pinta el puntero** a tamaño físico. El **`AppScaler`** escala la **página** con `transform`, así que la UI web se ve más “normal” pero el cursor **no** entra en esa escala — puede verse **grande al lado de la interfaz**. Es **normal**, no un fallo del paquete.*
+*ES: El **sistema operativo pinta el puntero** a tamaño físico. El **`AppScaler`** escala la **página** con `transform` — en la captura **con paquete** el cursor puede verse **grande** junto a la web. Es **normal**, no un fallo.*
 
-See [`docs/images/README.md`](./docs/images/README.md) for how to capture a honest A/B.
+[`docs/images/README.md`](./docs/images/README.md) — file names and capture tips.
 
 ---
 

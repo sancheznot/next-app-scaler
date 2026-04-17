@@ -10,12 +10,16 @@ import React, {
 
 interface ScalerContextType {
   scalerRef: React.RefObject<HTMLDivElement | null>;
+  /** EN: Current CSS scale factor (1 when inactive). ES: Factor scale (1 si inactivo). */
   scale: number;
+  /** EN: True when Windows/Linux HiDPI sandbox is on (transform + fixed root). ES: Scaler activo. */
+  isActive: boolean;
 }
 
 const ScalerContext = createContext<ScalerContextType>({
   scalerRef: { current: null },
   scale: 1,
+  isActive: false,
 });
 
 export const useScaler = () => useContext(ScalerContext);
@@ -70,9 +74,11 @@ export function AppScaler({ children }: { children: React.ReactNode }) {
   const height = isActive ? `${100 * (1 / scale)}%` : "100%";
 
   return (
-    <ScalerContext.Provider value={{ scalerRef, scale }}>
+    <ScalerContext.Provider value={{ scalerRef, scale, isActive }}>
       <div
         ref={scalerRef}
+        data-app-scaler-active={isActive ? "true" : "false"}
+        data-app-scaler-scale={scale}
         style={{
           width: isActive ? width : undefined,
           height: isActive ? height : undefined,

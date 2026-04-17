@@ -1,8 +1,9 @@
 # Screenshots for the main README
 
-The repo ships **placeholder** PNGs so the readme always shows two panels. **Replace them** with real captures when you can.
+- **`windows-125-without.png`** — real capture (fiscalapp dashboard at 125% system zoom, **without** `AppScaler`).
+- **`windows-125-with.png`** — placeholder until the “with scaler” shot is added.
 
-Target files in this folder (overwrite the placeholders):
+Target files (overwrite `windows-125-with.png` when ready):
 
 | File | What to show |
 |------|----------------|

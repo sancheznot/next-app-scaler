@@ -30,42 +30,40 @@ export function AppScaler({ children }: { children: React.ReactNode }) {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    // Check for scaling needs
+    // EN: Same math as always — only how often we re-run it changes (resize + visualViewport).
+    // ES: Misma lógica; visualViewport ayuda cuando el zoom no dispara solo window.resize.
     const handleResize = () => {
-      // Basic mobile detection
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-      
-      // Also check for Mac (Retina displays usually have high DPR but shouldn't be scaled down)
       const isMac = /Macintosh/i.test(navigator.userAgent);
-      
-      // Scaling only needed on desktop high-DPI (mostly Windows/Linux)
-      // Mobile devices & Mac handle DPI scaling natively for readability.
       const ratio = window.devicePixelRatio;
       const needsScaling = !isMobile && !isMac && ratio > 1;
+      const nextScale = needsScaling ? 1 / ratio : 1;
+
+      setScale((prev) => (Math.abs(prev - nextScale) < 1e-9 ? prev : nextScale));
+      setIsActive((prev) => (prev === needsScaling ? prev : needsScaling));
 
       if (needsScaling) {
-        setScale(1 / ratio);
-        setIsActive(true);
-        // Lock body scroll when active, as scrolling is handled by the Scaler
         document.body.style.overflow = "hidden";
       } else {
-        setScale(1);
-        setIsActive(false);
         document.body.style.overflow = "";
       }
     };
 
-    // Initial check
     handleResize();
 
-    // Listen for resize/zoom changes
     window.addEventListener("resize", handleResize);
+    const vv = typeof window !== "undefined" ? window.visualViewport : null;
+    if (vv) {
+      vv.addEventListener("resize", handleResize);
+    }
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (vv) {
+        vv.removeEventListener("resize", handleResize);
+      }
       document.body.style.overflow = "";
     };
   }, []);
@@ -83,6 +81,8 @@ export function AppScaler({ children }: { children: React.ReactNode }) {
           width: isActive ? width : undefined,
           height: isActive ? height : undefined,
           transform: isActive ? `scale(${scale})` : undefined,
+          // EN: Hint compositor — no layout change. ES: Solo capa GPU; no cambia tamaños.
+          willChange: isActive ? "transform" : undefined,
           transformOrigin: "top left",
           position: isActive ? "fixed" : "relative",
           top: 0,

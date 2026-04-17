@@ -2,6 +2,10 @@
 
 This package wraps the app in a **transformed**, often **fixed-position** root on **Windows/Linux** when `devicePixelRatio > 1`. Mac and mobile skip the transform (`isActive === false`).
 
+## Resize sources (v1.1.1+)
+
+The same layout logic runs on **`window.resize`** and **`visualViewport.resize`** (when available). That catches page zoom / viewport changes that do not always fire `window.resize`. **`visualViewport`** does not run per animation frame by itself — only when the visual viewport size changes. State updates skip if `scale` / `isActive` are unchanged (e.g. duplicate events). **`will-change: transform`** is applied only while scaling is active (compositor hint; no layout change).
+
 ## Why `100dvh` / `100vh` / `min-h-screen` can look “short”
 
 When scaling is **active**, the root node gets **inline width/height** like `125%` (for 125% OS zoom) and `transform: scale(0.8)`. The **layout box** is larger than **one viewport unit** in CSS pixels.

@@ -1,22 +1,32 @@
 # next-app-scaler
 
-A **scaled sandbox** for Next.js apps (especially with **shadcn/ui**) so layouts stay coherent on **Windows / Linux** with **system zoom** (125%, 150%, etc.) where `devicePixelRatio > 1`.
+---
 
-Published on npm as [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
+### English
 
-## Local development (maintainers)
+A **scaled sandbox** for Next.js apps—especially **shadcn/ui**—so layouts stay coherent on **Windows / Linux** when the OS uses **display zoom** (125%, 150%, …) and the browser reports `devicePixelRatio > 1`. Made with care for real desks, real zoom settings, and fewer “why is my dialog in the wrong place?” moments.
 
-From a checkout of **this** package’s repository: `npm install`, edit `src/index.tsx`, then `npm run build`. To try changes in a Next app without publishing, use `npm link` or `npm pack` and install the generated tarball in the app. Consumer projects only need the npm dependency; they do not ship this source tree.
+Published on npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
 
-## Install
+### Español
+
+Un **sandbox escalado** para apps Next.js—sobre todo con **shadcn/ui**—para que el layout se mantenga coherente en **Windows / Linux** cuando el sistema usa **zoom de pantalla** (125%, 150%, …) y el navegador reporta `devicePixelRatio > 1`. Hecho con mucho cariño para escritorios de verdad, zoom real y menos “¿por qué mi diálogo está en otro sitio?”.
+
+Publicado en npm: [`next-app-scaler`](https://www.npmjs.com/package/next-app-scaler).
+
+---
+
+## English
+
+### Install
 
 ```bash
 npm install next-app-scaler
 ```
 
-## Usage
+### Usage
 
-### 1. Patch shadcn primitives (portals)
+#### 1. Patch shadcn primitives (portals)
 
 From the **root of your Next.js app**:
 
@@ -24,9 +34,15 @@ From the **root of your Next.js app**:
 npx next-app-scaler
 ```
 
-This patches `src/components/ui/*` so `Dialog`, `Sheet`, `Select`, `Tooltip`, etc. use `container={scalerRef.current}` from `useScaler()`. Re-run after adding new Radix-based components.
+This scans `src/components/ui/*` and, where it finds Radix **Portal** primitives (`Dialog`, `Sheet`, `Select`, `Tooltip`, etc.), it:
 
-### 2. Wrap the app
+- adds `import { useScaler } from "next-app-scaler"`;
+- injects `const { scalerRef } = useScaler()` inside the component;
+- sets `container={scalerRef.current}` on the Portal so overlays render **inside** the same transformed root as your app (otherwise `position: fixed` breaks under a transformed ancestor).
+
+**Re-run** after adding new Radix-based UI files, or if you regenerate components from shadcn and lose the patch.
+
+#### 2. Wrap the app
 
 In `src/app/layout.tsx`, inside `<body>`:
 
@@ -44,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-### 3. Optional: `useScaler()` in your code
+#### 3. Optional: `useScaler()` in your code
 
 ```tsx
 import { useScaler } from "next-app-scaler";
@@ -52,35 +68,128 @@ import { useScaler } from "next-app-scaler";
 const { scalerRef, scale, isActive } = useScaler();
 ```
 
-- **`scale`**: CSS scale factor applied when active (e.g. `0.8` at 125% zoom).
-- **`isActive`**: `true` when the HiDPI sandbox is enabled (Windows/Linux, not Mac/mobile by default).
+- **`scale`**: CSS scale factor when active (e.g. `0.8` at 125% zoom).
+- **`isActive`**: `true` when the HiDPI sandbox is on (desktop Windows/Linux by default; not mobile / not macOS in the default logic).
 
-The root element also sets:
+The root element also exposes `data-app-scaler-active` and `data-app-scaler-scale` for CSS or tests.
 
-- `data-app-scaler-active="true"|"false"`
-- `data-app-scaler-scale` (number as string)
-
-for CSS or tests.
-
-## How it works (short)
+### How it works (short)
 
 | Environment | Behavior |
 |-------------|----------|
 | **Mobile** | Scaling **off** (`position: relative`, no transform). |
 | **macOS** | Scaling **off** — Retina is handled differently; we avoid double scaling. |
-| **Windows / Linux desktop** with `devicePixelRatio > 1` | **On**: root gets `position: fixed`, `transform: scale(1/DPR)`, and width/height **> 100%** so that after scaling the visual size matches the viewport. `document.body` overflow is hidden; scroll happens inside the scaler root. |
+| **Windows / Linux desktop** with `devicePixelRatio > 1` | **On**: root uses `position: fixed`, `transform: scale(1/DPR)`, and width/height **> 100%** so the **visual** size matches the viewport. `document.body` overflow is hidden; scroll lives inside the scaler root. |
 
-> **Note:** The previous README claimed a special “100dvh Mac shell”; the implementation simply **disables** the scaler on Mac. Layout still uses `h-dvh` on the root class for a full-height column when needed.
+Runtime updates also listen to **`window.resize`** and, when available, **`visualViewport.resize`**, so page zoom / odd viewport changes still re-run the same layout logic. That does **not** change the `scale(1/DPR)` math—only how often it refreshes.
 
-## Documentation for integrators
+> **Note:** Older docs mentioned a special “100dvh Mac shell”; the current code simply **disables** the scaler on Mac. The root class may still use `h-dvh` for a full-height column when needed.
+
+### Does `npx next-app-scaler` need updating when the library updates?
+
+**Usually no.** The CLI only wires **portals** to `scalerRef` from `useScaler()`. Newer runtime work (e.g. `visualViewport`, compositor hints) lives inside **`AppScaler`** and keeps the same ref and behavior for overlays. You only need to **re-run the CLI** if you add or regenerate UI components that use new Portals, or if upstream shadcn changes file structure so the patch no longer matches.
+
+### Docs for integrators
 
 | Doc | Purpose |
 |-----|---------|
 | [docs/LAYOUT-PITFALLS.md](./docs/LAYOUT-PITFALLS.md) | `dvh` vs `%`, portals, z-index, full-screen pages |
 | [docs/AI-ASSISTANT-PROMPT.md](./docs/AI-ASSISTANT-PROMPT.md) | Copy-paste prompts for AI-assisted debugging |
 
-## Author
+### Local development (maintainers)
 
-**sancheznotdev** · [GitHub](https://github.com/sancheznot/)
+Clone this package’s repo, then `npm install`, edit `src/index.tsx`, `npm run build`. To test in an app without publishing, use `npm link` or `npm pack` and install the tarball. Consumer apps only depend on the npm package—they don’t ship this source tree.
 
-MIT License.
+### Author · License
+
+**sancheznotdev** · [GitHub](https://github.com/sancheznot/) · MIT License.
+
+---
+
+## Español
+
+### Instalación
+
+```bash
+npm install next-app-scaler
+```
+
+### Uso
+
+#### 1. Parchear primitivas de shadcn (portales)
+
+Desde la **raíz de tu app Next.js**:
+
+```bash
+npx next-app-scaler
+```
+
+El comando revisa `src/components/ui/*` y, donde encuentra **Portal** de Radix (`Dialog`, `Sheet`, `Select`, `Tooltip`, etc.):
+
+- añade `import { useScaler } from "next-app-scaler"`;
+- inyecta `const { scalerRef } = useScaler()` dentro del componente;
+- pone `container={scalerRef.current}` en el Portal para que los overlays se rendericen **dentro** del mismo nodo transformado que la app (si no, `position: fixed` se comporta mal bajo un ancestro con `transform`).
+
+**Vuelve a ejecutarlo** si añades nuevos componentes basados en Radix, o si regeneras archivos desde shadcn y se pierde el parche.
+
+#### 2. Envolver la app
+
+En `src/app/layout.tsx`, dentro de `<body>`:
+
+```tsx
+import { AppScaler } from "next-app-scaler";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="es">
+      <body>
+        <AppScaler>{children}</AppScaler>
+      </body>
+    </html>
+  );
+}
+```
+
+#### 3. Opcional: `useScaler()` en tu código
+
+```tsx
+import { useScaler } from "next-app-scaler";
+
+const { scalerRef, scale, isActive } = useScaler();
+```
+
+- **`scale`**: factor CSS cuando está activo (p. ej. `0.8` con zoom 125%).
+- **`isActive`**: `true` cuando el sandbox HiDPI está encendido (Windows/Linux de escritorio por defecto; no móvil / no macOS con la lógica por defecto).
+
+El nodo raíz también expone `data-app-scaler-active` y `data-app-scaler-scale` para CSS o tests.
+
+### Cómo funciona (resumen)
+
+| Entorno | Comportamiento |
+|---------|----------------|
+| **Móvil** | Escalado **apagado** (`position: relative`, sin `transform`). |
+| **macOS** | Escalado **apagado** — Retina se gestiona distinto; evitamos doble escalado. |
+| **Windows / Linux** con `devicePixelRatio > 1` | **Encendido**: raíz con `position: fixed`, `transform: scale(1/DPR)` y ancho/alto **> 100%** para que el tamaño **visual** coincida con el viewport. Scroll dentro del root del scaler; `overflow` del `body` controlado. |
+
+En tiempo de ejecución también se escuchan **`window.resize`** y, si existe, **`visualViewport.resize`**, para que zoom de página o cambios raros de viewport vuelvan a ejecutar la misma lógica. Eso **no** cambia la fórmula `scale(1/DPR)`—solo **cuántas veces** se actualiza.
+
+> **Nota:** documentación antigua hablaba de un “shell Mac 100dvh” especial; la implementación actual **desactiva** el scaler en Mac. La clase del root puede seguir usando `h-dvh` para altura completa cuando haga falta.
+
+### ¿Hay que actualizar el parche (`npx`) cuando sube la librería?
+
+**Por lo general, no.** El CLI solo conecta los **portales** a `scalerRef` de `useScaler()`. Las mejoras de runtime (p. ej. `visualViewport`, hints de compositor) viven en **`AppScaler`** y mantienen el mismo ref y el mismo contrato para overlays. Solo necesitas **volver a ejecutar el CLI** si añades o regeneras componentes con portales nuevos, o si shadcn cambia la estructura de archivos y el parche ya no coincide.
+
+### Documentación para quien integra
+
+| Doc | Para qué |
+|-----|----------|
+| [docs/LAYOUT-PITFALLS.md](./docs/LAYOUT-PITFALLS.md) | `dvh` vs `%`, portales, z-index, pantallas a pantalla completa |
+| [docs/AI-ASSISTANT-PROMPT.md](./docs/AI-ASSISTANT-PROMPT.md) | Prompts listos para depurar con IA |
+
+### Desarrollo local (mantenedores)
+
+Clona el repo de este paquete, `npm install`, edita `src/index.tsx`, `npm run build`. Para probar en una app sin publicar: `npm link` o `npm pack` e instala el `.tgz`. Las apps consumidoras solo declaran la dependencia npm; no incluyen este árbol fuente.
+
+### Autor · Licencia
+
+**sancheznotdev** · [GitHub](https://github.com/sancheznot/) · Licencia MIT.
